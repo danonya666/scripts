@@ -1,5 +1,5 @@
 This script automates the process of building star ephemeris objects.
-It parses the input.xlsm file and puts the result to output.xlsm
+It parses the data.xlsm file and puts the result to output.xlsm
 Sample file is provided
 
 How to run:

@@ -1,8 +1,9 @@
 import os
+import platform
+import subprocess
 from math import pi, sin, cos, atan, tan
 
 from openpyxl import load_workbook
-import subprocess, os, platform
 
 
 class EphemerisBuilder:

@@ -21,16 +21,16 @@ class EphemerisBuilder:
             self.sheet = self.wb.get_sheet_by_name(sheet_names[0])
         except:
             raise TypeError(f"{self.input_filename} doesn't have any sheets")
-        self.tmn = self.smart_input(4)
-        self.tmk = self.smart_input(6)
-        self.l = self.smart_input(11) / 15
-        self.s0 = self.smart_input(19)
-        self.h = self.float_from_sheet(7, 2) / 60
-        self.n = self.float_from_sheet(16, 2)
-        self.d = self.float_from_sheet(17, 2)
-        self.alpha = self.smart_input(13) * 15 * pi / 180
-        self.d_del = self.smart_input(15) * pi / 180
-        self.fi = self.smart_input(9) * pi / 180
+        self.tmn = self.smart_input(6)
+        self.tmk = self.smart_input(8)
+        self.l = self.smart_input(14) / 15
+        self.s0 = self.smart_input(23)
+        self.h = self.float_from_sheet(9, 2) / 60
+        self.n = self.float_from_sheet(15, 2)
+        self.d = self.float_from_sheet(16, 2)
+        self.alpha = self.smart_input(19) * 15 * pi / 180
+        self.d_del = self.smart_input(21) * pi / 180
+        self.fi = self.smart_input(12) * pi / 180
         self.s1 = self.star_time(self.tmn, self.n, self.d, self.l, self.s0)  # start time on start of exp
         self.s2 = self.star_time(self.tmk, self.n, self.d, self.l, self.s0)  # start time on end of exp
         if self.s2 > self.s1:
@@ -46,8 +46,9 @@ class EphemerisBuilder:
         except:
             raise TypeError(f"Cannot convert {self.sheet.cell(row=r, column=c).value} to int")
 
-    def write_to_cell(self, r, c, v):
-        self.sheet.cell(row=r, column=c).value = v
+    def write_to_cell_to_the_right(self, r, c, v):
+        # writes v to cell with row == r and column == c + 1
+        self.sheet.cell(row=r, column=c+1).value = v
 
     def smart_input(self, n):
         # gets data from sheet in minutes and seconds
@@ -81,15 +82,15 @@ class EphemerisBuilder:
             cosz = sin(self.fi) * sin(self.d_del) + cos(self.fi) * cos(self.d_del) * cos(t)
             z = (atan(-cosz / (-cosz * cosz + 1) ** 0.5) + 2 * atan(1)) * 180 / pi
             A = atan(1 / (sin(self.fi) / tan(t) - tan(self.d_del) * cos(self.fi) / sin(t))) * 180 / pi + 180
-            self.write_to_cell(f, 6, self.fix(tm))
-            self.write_to_cell(f, 7, round((tm - self.fix(tm)) * 60))
+            self.write_to_cell_to_the_right(f, 6, self.fix(tm))
+            self.write_to_cell_to_the_right(f, 7, round((tm - self.fix(tm)) * 60))
             if tm > 24:
-                self.write_to_cell(f, 6, self.fix(tm - 24))
-                self.write_to_cell(f, 7, (tm - 24 - self.fix(self.fix(tm - 24))) * 60)
-            self.write_to_cell(f, 8, self.fix(z))
-            self.write_to_cell(f, 9, round((z - self.fix(z)) * 60))
-            self.write_to_cell(f, 10, self.fix(A))
-            self.write_to_cell(f, 11, round((A - self.fix(A)) * 60))
+                self.write_to_cell_to_the_right(f, 6, self.fix(tm - 24))
+                self.write_to_cell_to_the_right(f, 7, (tm - 24 - self.fix(self.fix(tm - 24))) * 60)
+            self.write_to_cell_to_the_right(f, 8, self.fix(z))
+            self.write_to_cell_to_the_right(f, 9, round((z - self.fix(z)) * 60))
+            self.write_to_cell_to_the_right(f, 10, self.fix(A))
+            self.write_to_cell_to_the_right(f, 11, round((A - self.fix(A)) * 60))
             f += 1
             s += self.h
             tm += self.h
@@ -117,7 +118,7 @@ def open_file(out_file):
 if __name__ == '__main__':
     out_file = 'output.xlsx'
     print('Script.py started')
-    builder = EphemerisBuilder("data.xlsm")
+    builder = EphemerisBuilder("data.xlsx")
     builder.solve_to_file()
     open_file(out_file)
     print('script successfully finished, results in output.xlsm')

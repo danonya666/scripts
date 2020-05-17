@@ -1,13 +1,13 @@
 This script automates the process of building star ephemeris objects.
-It parses the data.xlsm file and puts the result to output.xlsm
+It parses the data.xlsx file and puts the result to output.xlsm
 Sample file is provided
-
+Supports two formats of input, check out data
 How to run:
 `pip install -r requirements.txt`
 `python script.py`
 
 Как запускать для чайников:
-0. Положить файл data.xlsm в папку со скриптом
+0. Положить файл data.xlsx в папку со скриптом
 1. Если не установлен python - скачать + установить с https://www.python.org/downloads/windows/
 2. Открыть командую строку (Пуск, выполнить, cmd)
 3. С помощью команды cd перейти в папку со скриптом и файликами

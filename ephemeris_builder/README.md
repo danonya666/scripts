@@ -7,6 +7,7 @@ How to run:
 `python script.py`
 
 Как запускать для чайников:
+
 0. Положить файл data.xlsx в папку со скриптом
 1. Если не установлен python - скачать + установить с https://www.python.org/downloads/windows/
 2. Открыть командую строку (Пуск, выполнить, cmd)

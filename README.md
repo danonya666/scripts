@@ -9,3 +9,7 @@ A script for counting balance of items in multiple stocks by their barcode using
 ## 2. ephemeris_builder
 
 A script for automating the process of building star ephemeris objects getting data from excel sheet
+
+## 3. time_tracker
+
+kills Mozilla Firefox processes if you use them for more then 2 hours

@@ -1,1 +1,1 @@
-Time tracker that kills Mozilla Firefox processes if use it for more then 2 hours ^_^
+Time tracker that kills Mozilla Firefox processes if use them for more then 2 hours ^_^

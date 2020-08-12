@@ -24,9 +24,11 @@ except:
 # doing the same thing but for another excel file
 # todo: make a function for getting sheet
 try:
-    deficit_wb = load_workbook('./Defitsit.xlsx')
+    # deficit_wb = load_workbook('./Defitsit.xlsx')
+    deficit_wb = load_workbook('./ves_tovar.xlsx')
 except:
-    print("Please put Defitsit.xlsx into script directory")
+    # print("Please put Defitsit.xlsx into script directory")
+    print("Please put ves_tovar.xlsx into script directory")
 
 try:
     sheet_names = deficit_wb.get_sheet_names()
@@ -55,9 +57,9 @@ while left_sheet.cell(row=current_row, column=1).value is not None or left_sheet
 
 barcodes_to_rows = {}
 current_row = 2
-while def_sheet.cell(row=current_row, column=14).value is not None or def_sheet.cell(row=current_row,
+while def_sheet.cell(row=current_row, column=9).value is not None or def_sheet.cell(row=current_row,
                                                                                      column=1).value is not None:
-    bar = def_sheet.cell(row=current_row, column=14).value
+    bar = def_sheet.cell(row=current_row, column=9).value
     barcodes_to_rows[bar] = current_row
     current_row += 1
 
@@ -67,12 +69,12 @@ for bar, left in barcode_to_leftovers.items():
     except:
         # print(f"skipping {bar}")
         continue
-    def_sheet[f'V{row}'] = left
+    def_sheet[f'K{row}'] = left
 
 try:
-    deficit_wb.save(filename='Defitsit.xlsx')
+    deficit_wb.save(filename='ves_tovar.xlsx')
 except PermissionError:
-    print("Please close the Defitsit.xlsx before running")
-    print("RESULTS ARE NOT SAVED, CLOSE Defitsit.xlsx AND START AGAIN")
+    print("Please close the ves_tovar.xlsx before running")
+    print("RESULTS ARE NOT SAVED, CLOSE ves_tovar.xlsx AND START AGAIN")
 
-print('script successfully ended, results in Defitsit.xlsx')
+print('script successfully ended, results in ves_tovar.xlsx')

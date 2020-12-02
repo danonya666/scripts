@@ -1,11 +1,8 @@
-import platform
-
 import psutil
 from datetime import datetime
-import pandas as pd
 from time import sleep
-import os
-import subprocess
+
+from cool_scripts.common.util import show_warning
 
 SECONDS_IN_HOUR = 3600
 
@@ -29,28 +26,13 @@ def main():
                 if time.total_seconds() > 2 * SECONDS_IN_HOUR:
                     log_end_of_day()
                 if day_is_over():
-                    show_warning()
+                    show_warning("Соня, прошло 2 часа, выключай компухтер!", "Привет")
                     sleep(5)
                     process.kill()
-                # print(time.total_seconds())
-                # print('im brave')
-                # process.kill()
-                # print(
-                #     f"name: {name} time: {datetime.now() - datetime.fromtimestamp(process.create_time())} status: {process.status()}")
+                # print(time.total_seconds()) print('im brave') process.kill() print( f"name: {name} time: {
+                # datetime.now() - datetime.fromtimestamp(process.create_time())} status: {process.status()}")
 
 
-def show_warning():
-    system = platform.system()
-    cmd = ""
-    notification_text = "Соня, прошло 2 часа, пора выключать компухтер!"
-    title = "Zzzzzz"
-    if system == "Darwin":
-        cmd = f"""osascript -e 'display notification "{notification_text}" with title "{title}"'"""
-    if system == "Linux":
-        cmd = f'notify-send "{notification_text}"'
-    results = subprocess.run(
-        cmd, shell=True, universal_newlines=True, check=True)
-    # print(results.stdout)
 
 
 def log_end_of_day():

@@ -1,0 +1,6 @@
+GDAL==3.1.2
+numpy
+protobuf==3.13.0
+scipy==1.5.2
+six==1.15.0
+TBB==0.1
